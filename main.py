@@ -1,3 +1,7 @@
+from datetime import datetime
+
+
+from dateutil.relativedelta import relativedelta
 print("<---Due amount calculator--->")
 
 def actual_price():
@@ -38,7 +42,7 @@ def months():
                 return months_int
 
             else:
-                print("\nmonths cannot be zero or less")
+                print("\n months cannot be zero or less")
         except (TypeError, ValueError):
             print("\n months   should be a natural number")
 
@@ -57,11 +61,22 @@ def due_amount(real_value):
         except ValueError:
             print("\n Due amount only be natural numbers")
 
+def due_months(time_period):
+    while True:
+        try:
+            due_starts=input("\n Enter Due starting Date dd/mm/yyyy:")
+            due_starts_nxt = datetime.strptime(due_starts,"%d/%m/%Y")
+            d_months_nxt=due_starts_nxt + relativedelta(months = time_period - 1)
+            return  d_months_nxt
+        except (ValueError,TypeError):
+            print("\n Please give proper input :")
+
 def executions():
     real_value = actual_price()
     d_payment = down_payment(real_value)
     time_period = months()
     pay_per_month = due_amount(real_value)
+    due_time=due_months(time_period)
 
     due_total = time_period * pay_per_month
 
@@ -69,11 +84,8 @@ def executions():
 
     print(f"\n The amount of total due in {time_period} months is  :{due_total}")
     print(f"\n The amount you pay with down payment +  due in total is  :{sum_of_all_payment}")
-    print(f"\n you pay extra  of  in {time_period} months :", sum_of_all_payment - real_value)
-
-
-
-
+    print(f"\n In {time_period} months you pay just due amount of   :", sum_of_all_payment - real_value)
+    print(f"\n Your last due date will be :{due_time.strftime('%d %B %Y')}")
 
 executions()
 
