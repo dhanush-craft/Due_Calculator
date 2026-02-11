@@ -87,7 +87,8 @@ def executions():
     print(f"\n In {time_period} months you pay just due amount of   :", sum_of_all_payment - real_value)
     print(f"\n Your last due date will be :{due_time.strftime('%d %B %Y')}")
 
-executions()
+if __name__ == "__main__":
+    executions()
 
 
 
